@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Global Markets | Next-Generation Institutional & Retail Broker</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#07090e',
+                            800: '#0d121f',
+                            700: '#141c2e',
+                            600: '#1e293b'
+                        },
+                        cyan: {
+                            450: '#06b6d4',
+                            500: '#06b6d4'
+                        },
+                        bullish: '#10b981',
+                        bearish: '#ef4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-dark-900 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Top Live Market Marquee Ribbon -->
+    <div class="w-full bg-[#05070a] border-b border-white/5 overflow-hidden py-1 z-40 relative">
+        <div id="ticker-track" class="ticker-track text-xs font-mono">
+            <!-- Populated dynamically via app.js -->
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-30 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-sky-400 to-emerald-400 flex items-center justify-center shadow-lg shadow-cyan-500/25 group-hover:scale-105 transition-transform">
+                    <svg class="w-6 h-6 text-slate-950 font-extrabold" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13H5.5L12 6.5z"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+                        APEX <span class="text-gradient-cyan">MARKETS</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest text-slate-400 font-mono block -mt-1 uppercase">Institutional Broker</span>
+                </div>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                <a href="#markets" class="hover:text-cyan-400 transition-colors">Markets</a>
+                <a href="#webtrader" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    WebTrader
+                </a>
+                <a href="#accounts" class="hover:text-cyan-400 transition-colors">Account Types</a>
+                <a href="#calculator" class="hover:text-cyan-400 transition-colors">Calculator</a>
+                <a href="#advantages" class="hover:text-cyan-400 transition-colors">Why Apex</a>
+                <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Action CTAs -->
+            <div class="flex items-center gap-3">
+                <button onclick="window.app.openWebTraderModal()"
+                        class="px-4 py-2 rounded-lg text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 transition-all flex items-center gap-2">
+                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    Terminal
+                </button>
+                <button onclick="window.app.openAccountModal('Standard')"
+                        class="px-5 py-2.5 rounded-lg text-xs font-bold bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 shadow-lg shadow-cyan-500/20 transition-all transform hover:-translate-y-0.5">
+                    Open Account
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-16 pb-24 overflow-hidden">
+            <!-- Background Glow Orbs -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-gradient-to-r from-cyan-500/15 via-emerald-500/10 to-transparent blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-medium mb-6 backdrop-blur-md">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        Raw ECN Spreads from 0.0 Pips &bull; Tier-1 Liquidity
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Trade Global Markets with <br/>
+                        <span class="text-gradient-cyan">Institutional Precision</span>
+                    </h1>
+
+                    <p class="mt-6 text-base sm:text-lg text-slate-400 leading-relaxed">
+                        Access over 1,200+ Forex pairs, Cryptocurrencies, Global Stock Indices, and Commodities with ultra-low latency execution (<15ms) and up to 1:500 leverage.
+                    </p>
+
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="window.app.openAccountModal('Raw ECN')"
+                                class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-sm bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 hover:opacity-95 text-slate-950 shadow-xl shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5">
+                            Start Trading Today
+                        </button>
+                        <button onclick="window.app.openWebTraderModal()"
+                                class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm bg-slate-800/90 hover:bg-slate-700/90 text-slate-100 border border-white/10 transition-all flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Try $10,000 Demo Terminal
+                        </button>
+                    </div>
+
+                    <!-- Trust Stats Bar -->
+                    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/10">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">$48.2B+</div>
+                            <div class="text-xs text-slate-400 mt-1">Monthly Trading Volume</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono">< 12ms</div>
+                            <div class="text-xs text-slate-400 mt-1">Average Execution Speed</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">0.0 Pips</div>
+                            <div class="text-xs text-slate-400 mt-1">Raw Spreads (Zero Markup)</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">180+</div>
+                            <div class="text-xs text-slate-400 mt-1">Countries Supported</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Markets Table Section -->
+        <section id="markets" class="py-16 bg-[#0a0f1d] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Live Quotes</div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Trade 1,200+ Global Instruments</h2>
+                    </div>
+
+                    <!-- Category Filter Buttons & Search -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="inline-flex bg-slate-900/90 rounded-xl p-1 border border-white/10">
+                            <button data-category="all" class="market-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 transition-all">All</button>
+                            <button data-category="forex" class="market-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-100 transition-all">Forex</button>
+                            <button data-category="crypto" class="market-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-100 transition-all">Crypto</button>
+                            <button data-category="indices" class="market-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-100 transition-all">Indices</button>
+                            <button data-category="commodities" class="market-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-100 transition-all">Commodities</button>
+                        </div>
+
+                        <!-- Search -->
+                        <div class="relative">
+                            <input id="market-search" type="text" placeholder="Search symbol..." 
+                                   class="bg-slate-900/90 border border-white/10 rounded-xl px-4 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-44">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10 bg-slate-900/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                    <th class="py-3.5 px-6">Instrument</th>
+                                    <th class="py-3.5 px-6">Bid Price</th>
+                                    <th class="py-3.5 px-6">Ask Price</th>
+                                    <th class="py-3.5 px-6">Spread</th>
+                                    <th class="py-3.5 px-6">24h Change</th>
+                                    <th class="py-3.5 px-6 hidden md:table-cell">24h Low / High</th>
+                                    <th class="py-3.5 px-6 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="market-table-body" class="divide-y divide-white/5 text-sm">
+                                <!-- Populated dynamically by app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Embedded WebTrader Interactive Showcase -->
+        <section id="webtrader" class="py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Institutional Tech</div>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Apex WebTrader Terminal</h2>
+                    <p class="text-sm text-slate-400 mt-2">Zero installation required. Trade directly in your browser with real-time candlestick charts, one-click execution, and dynamic position management.</p>
+                </div>
+
+                <!-- WebTrader Terminal Shell -->
+                <div class="glass-panel rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+                    <!-- Terminal Top Navigation Bar -->
+                    <div class="bg-slate-950 px-5 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+                        <!-- Left Account Info -->
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span class="text-xs font-bold text-slate-200">Apex Live Feed</span>
+                            </div>
+                            <div class="h-4 w-px bg-white/10"></div>
+                            <div class="text-xs text-slate-400">Server: <span class="text-slate-200 font-mono">LD4-Equinix</span></div>
+                        </div>
+
+                        <!-- Center Account Numbers -->
+                        <div class="flex flex-wrap items-center gap-6 text-xs">
+                            <div>
+                                <span class="text-slate-400">Balance:</span>
+                                <span id="wt-acc-balance" class="font-mono font-bold text-slate-100 ml-1.5">$10,000.00</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Equity:</span>
+                                <span id="wt-acc-equity" class="font-mono font-bold text-emerald-400 ml-1.5">$10,000.00</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Free Margin:</span>
+                                <span id="wt-acc-free-margin" class="font-mono font-bold text-slate-100 ml-1.5">$10,000.00</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Margin Used:</span>
+                                <span id="wt-acc-margin" class="font-mono text-slate-300 ml-1.5">$0.00</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400">Margin Level:</span>
+                                <span id="wt-acc-margin-level" class="font-mono text-slate-300 ml-1.5">--%</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Quick Action -->
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.app.openDepositModal()"
+                                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/30 transition-all flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                                Deposit Funds
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Main Body (3-Column Layout: Watchlist | Chart | Order Ticket) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
+                        
+                        <!-- Col 1: Watchlist (3 cols) -->
+                        <div class="lg:col-span-3 border-r border-white/10 bg-slate-950/60 p-3 flex flex-col">
+                            <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Instruments</span>
+                                <span class="text-[10px] text-cyan-400 font-semibold font-mono">12 Active</span>
+                            </div>
+                            <div id="wt-watchlist" class="space-y-1.5 overflow-y-auto max-h-[460px] pr-1">
+                                <!-- Populated dynamically by webtrader.js -->
+                            </div>
+                        </div>
+
+                        <!-- Col 2: Candlestick Chart Area (6 cols) -->
+                        <div class="lg:col-span-6 bg-[#0a0e18] flex flex-col border-r border-white/10">
+                            <!-- Active Symbol Header & Timeframe Switchers -->
+                            <div class="px-4 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 bg-slate-950/40">
+                                <div class="flex items-center gap-3">
+                                    <div>
+                                        <span id="wt-active-symbol" class="font-extrabold text-base text-white">EUR/USD</span>
+                                        <span id="wt-active-name" class="text-xs text-slate-400 ml-2">Euro / US Dollar</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 font-mono text-xs">
+                                        <span class="text-slate-400">Spread:</span>
+                                        <span id="wt-active-spread" class="text-cyan-400 font-bold">0.8 pips</span>
+                                    </div>
+                                </div>
+
+                                <!-- Timeframe buttons -->
+                                <div class="inline-flex bg-slate-900 rounded-lg p-0.5 border border-white/10 text-xs">
+                                    <button data-tf="1m" class="wt-tf-btn px-2.5 py-1 rounded font-bold bg-cyan-600 text-white">1m</button>
+                                    <button data-tf="5m" class="wt-tf-btn px-2.5 py-1 rounded font-bold text-slate-400 hover:text-white">5m</button>
+                                    <button data-tf="15m" class="wt-tf-btn px-2.5 py-1 rounded font-bold text-slate-400 hover:text-white">15m</button>
+                                    <button data-tf="1h" class="wt-tf-btn px-2.5 py-1 rounded font-bold text-slate-400 hover:text-white">1h</button>
+                                    <button data-tf="1D" class="wt-tf-btn px-2.5 py-1 rounded font-bold text-slate-400 hover:text-white">1D</button>
+                                </div>
+                            </div>
+
+                            <!-- Canvas Candlestick Chart -->
+                            <div class="chart-container flex-grow relative">
+                                <canvas id="tradingChart"></canvas>
+                            </div>
+
+                            <!-- Bottom stats for active asset -->
+                            <div class="px-4 py-2 bg-slate-950/70 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                                <div>24h Low: <span id="wt-active-low" class="text-slate-200">1.08110</span></div>
+                                <div>24h High: <span id="wt-active-high" class="text-slate-200">1.08720</span></div>
+                                <div class="text-emerald-400 font-semibold">Feed: Direct NY4 ECN Pool</div>
+                            </div>
+                        </div>
+
+                        <!-- Col 3: Order Execution Ticket (3 cols) -->
+                        <div class="lg:col-span-3 bg-slate-950/80 p-4 flex flex-col justify-between">
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-slate-300 pb-2 border-b border-white/10 mb-4 flex items-center justify-between">
+                                    <span>Order Ticket</span>
+                                    <span class="text-[10px] text-cyan-400 font-mono">Market Execution</span>
+                                </div>
+
+                                <!-- Buy / Sell Dual Large Buttons -->
+                                <div class="grid grid-cols-2 gap-3 mb-5">
+                                    <button id="wt-btn-sell" class="p-3 rounded-xl bg-rose-500/15 hover:bg-rose-500 hover:text-white border border-rose-500/40 text-rose-400 transition-all flex flex-col items-center group">
+                                        <span class="text-xs font-extrabold uppercase tracking-wider">SELL</span>
+                                        <span id="wt-sell-price" class="font-mono text-base font-extrabold mt-1 group-hover:text-white text-rose-300">1.08450</span>
+                                        <span class="text-[10px] text-rose-400/80 mt-0.5">Bid Price</span>
+                                    </button>
+
+                                    <button id="wt-btn-buy" class="p-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/40 text-emerald-400 transition-all flex flex-col items-center group">
+                                        <span class="text-xs font-extrabold uppercase tracking-wider">BUY</span>
+                                        <span id="wt-buy-price" class="font-mono text-base font-extrabold mt-1 group-hover:text-slate-950 text-emerald-300">1.08458</span>
+                                        <span class="text-[10px] text-emerald-400/80 mt-0.5">Ask Price</span>
+                                    </button>
+                                </div>
+
+                                <!-- Volume / Lot Size -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+                                        <span>Trade Volume (Lots)</span>
+                                        <span class="text-[11px] font-mono text-slate-300">0.01 - 50.0</span>
+                                    </div>
+                                    <div class="relative">
+                                        <input id="wt-lot-size" type="number" step="0.01" min="0.01" max="50" value="1.00"
+                                               class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm font-mono text-white focus:outline-none focus:border-cyan-500">
+                                        <div class="absolute right-3 top-2.5 text-xs text-slate-500 font-mono">LOTS</div>
+                                    </div>
+                                </div>
+
+                                <!-- Leverage Selection -->
+                                <div class="mb-4">
+                                    <div class="text-xs text-slate-400 mb-1.5">Account Leverage</div>
+                                    <select id="wt-leverage" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500">
+                                        <option value="500">1:500 (Maximum)</option>
+                                        <option value="200">1:200</option>
+                                        <option value="100">1:100</option>
+                                        <option value="50">1:50</option>
+                                    </select>
+                                </div>
+
+                                <!-- Stop Loss & Take Profit (Optional) -->
+                                <div class="grid grid-cols-2 gap-2 mb-4">
+                                    <div>
+                                        <label class="text-[11px] text-slate-400 block mb-1">Stop Loss (Rate)</label>
+                                        <input id="wt-sl-input" type="number" step="0.0001" placeholder="Optional"
+                                               class="w-full bg-slate-900 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-rose-500">
+                                    </div>
+                                    <div>
+                                        <label class="text-[11px] text-slate-400 block mb-1">Take Profit (Rate)</label>
+                                        <input id="wt-tp-input" type="number" step="0.0001" placeholder="Optional"
+                                               class="w-full bg-slate-900 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-white/10">
+                                <div class="text-[11px] text-slate-400 flex items-center justify-between">
+                                    <span>Negative Balance Protection:</span>
+                                    <span class="text-emerald-400 font-semibold">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Bottom Positions & History Drawer -->
+                    <div class="border-t border-white/10 bg-slate-950">
+                        <div class="px-5 py-2.5 border-b border-white/5 flex items-center justify-between">
+                            <div class="flex items-center gap-6 text-xs font-bold">
+                                <button id="wt-tab-positions" class="text-cyan-400 border-b-2 border-cyan-400 pb-1 flex items-center gap-2">
+                                    Open Positions
+                                    <span id="wt-positions-count" class="px-1.5 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px]">0</span>
+                                </button>
+                                <button id="wt-tab-history" class="text-slate-400 hover:text-white border-b-2 border-transparent pb-1 transition-colors">
+                                    Trade History
+                                </button>
+                            </div>
+                            <div class="text-[11px] text-slate-500">
+                                Double-click or click "Close" to exit any open trade
+                            </div>
+                        </div>
+
+                        <!-- Positions Table -->
+                        <div id="wt-panel-positions" class="overflow-x-auto max-h-48">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-900/60 border-b border-white/5">
+                                        <th class="py-2 px-3">Order ID</th>
+                                        <th class="py-2 px-3">Symbol</th>
+                                        <th class="py-2 px-3">Type</th>
+                                        <th class="py-2 px-3">Lots</th>
+                                        <th class="py-2 px-3">Open Price</th>
+                                        <th class="py-2 px-3">Current Price</th>
+                                        <th class="py-2 px-3">SL / TP</th>
+                                        <th class="py-2 px-3">Floating P&L</th>
+                                        <th class="py-2 px-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="wt-positions-list">
+                                    <!-- Populated dynamically via webtrader.js -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- History Table (Initially Hidden) -->
+                        <div id="wt-panel-history" class="hidden overflow-x-auto max-h-48">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-900/60 border-b border-white/5">
+                                        <th class="py-2 px-3">Order ID</th>
+                                        <th class="py-2 px-3">Symbol</th>
+                                        <th class="py-2 px-3">Type</th>
+                                        <th class="py-2 px-3">Open Price</th>
+                                        <th class="py-2 px-3">Close Price</th>
+                                        <th class="py-2 px-3">Closed At</th>
+                                        <th class="py-2 px-3 text-right">Realized P&L</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="wt-history-list">
+                                    <!-- Populated dynamically via webtrader.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Margin & Pip Value Calculator Section -->
+        <section id="calculator" class="py-20 bg-[#090d19] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Copy -->
+                    <div class="lg:col-span-5">
+                        <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Trader's Toolset</div>
+                        <h2 class="text-3xl font-extrabold text-white mt-1">Smart Margin & Pip Calculator</h2>
+                        <p class="text-sm text-slate-400 mt-4 leading-relaxed">
+                            Accurately calculate your required margin deposit, pip value, spread cost, and total exposure before entering any trade. Trade with crystal-clear risk transparency.
+                        </p>
+
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-center gap-3 text-sm text-slate-300">
+                                <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">✓</div>
+                                <span>Dynamic recalculation based on live exchange rates</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-300">
+                                <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">✓</div>
+                                <span>Supports Forex, Cryptos, Indices & Commodities</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-300">
+                                <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">✓</div>
+                                <span>Configurable leverage from 1:50 up to 1:500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Calculator Widget -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-300 block mb-2">Select Instrument</label>
+                                    <select id="calc-asset" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-semibold">
+                                        <!-- Populated dynamically via calculator.js -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-300 block mb-2">Account Currency</label>
+                                    <select id="calc-currency" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-semibold">
+                                        <option value="USD">USD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-2">
+                                    <span>Volume (Lots)</span>
+                                    <input id="calc-lots" type="number" step="0.01" min="0.01" max="10" value="1.00"
+                                           class="w-20 bg-slate-900 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-right font-mono text-cyan-400 focus:outline-none focus:border-cyan-500">
+                                </div>
+                                <input id="calc-lots-slider" type="range" min="0.01" max="10" step="0.01" value="1.00"
+                                       class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+                            </div>
+
+                            <div class="mb-8">
+                                <label class="text-xs font-bold text-slate-300 block mb-2">Leverage Tier</label>
+                                <select id="calc-leverage" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-mono font-semibold">
+                                    <option value="500">1:500 (Apex Maximum)</option>
+                                    <option value="200">1:200</option>
+                                    <option value="100">1:100</option>
+                                    <option value="50">1:50</option>
+                                </select>
+                            </div>
+
+                            <!-- Calculation Results Matrix -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-xl bg-slate-950/80 border border-white/10">
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Required Margin</div>
+                                    <div id="calc-res-margin" class="font-mono text-base font-extrabold text-cyan-400 mt-1">$216.92</div>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Pip Value</div>
+                                    <div id="calc-res-pip" class="font-mono text-base font-extrabold text-emerald-400 mt-1">$10.00</div>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Contract Size</div>
+                                    <div id="calc-res-contract" class="font-mono text-xs font-bold text-slate-200 mt-2">100,000 Units</div>
+                                </div>
+                                <div>
+                                    <div class="text-[11px] text-slate-400">Spread Cost</div>
+                                    <div id="calc-res-spread" class="font-mono text-xs font-bold text-slate-200 mt-2">$8.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Types Comparison Section -->
+        <section id="accounts" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Choose Your Edge</div>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Institutional Account Tiers</h2>
+                    <p class="text-sm text-slate-400 mt-2">Transparent pricing, raw spreads from 0.0 pips, and flexible leverage designed for traders of every experience level.</p>
+                </div>
+
+                <div id="account-tiers-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Populated dynamically via app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Institutional Advantages & Security Section -->
+        <section id="advantages" class="py-20 bg-[#0a0f1d] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Security & Infrastructure</div>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Why Institutional Traders Choose Apex</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card rounded-2xl p-8 border border-white/10">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Equinix LD4 / NY4 Cross-Connects</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Our trading servers are collocated directly inside London LD4 and New York NY4 data centers, delivering lightning-fast sub-15ms order execution with zero requotes.
+                        </p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border border-white/10">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Tier-1 Segregated Funds</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Client funds are held in segregated accounts with leading Tier-1 global custodian banks. Enhanced with Negative Balance Protection so your loss never exceeds your balance.
+                        </p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border border-white/10">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-6">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Algorithmic & EA Friendly</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            No trading restrictions. Full support for automated trading bots, scalping strategies, hedging, news trading, and institutional FIX API connectivity.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Payment Methods Bar -->
+                <div class="mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-slate-400">
+                    <span class="text-xs uppercase tracking-widest font-bold text-slate-500">Instant Deposit Partners:</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">VISA</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">MASTERCARD</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">USDT (TRC-20 / ERC-20)</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">BITCOIN</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">APPLE PAY</span>
+                    <span class="text-sm font-semibold tracking-wider hover:text-white transition-colors">WIRE TRANSFER</span>
+                    <span class="text-xs px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-400 font-bold">0% Fees</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQs Section -->
+        <section id="faq" class="py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="text-xs font-bold uppercase tracking-wider text-cyan-400">Clear Answers</div>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Frequently Asked Questions</h2>
+                </div>
+
+                <div id="faqs-container" class="space-y-4">
+                    <!-- Populated dynamically via app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- High-Impact Bottom Call to Action -->
+        <section class="py-20 bg-gradient-to-b from-dark-900 via-slate-900 to-[#05070a] border-t border-white/10 relative">
+            <div class="max-w-5xl mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Ready to Experience True ECN Trading?</h2>
+                <p class="mt-4 text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+                    Join over 450,000+ traders across 180 countries. Open your live or demo account in under 3 minutes.
+                </p>
+                <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="window.app.openAccountModal('Raw ECN')"
+                            class="px-8 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 shadow-xl shadow-cyan-500/25 transition-all">
+                        Create Live Account
+                    </button>
+                    <button onclick="window.app.openWebTraderModal()"
+                            class="px-8 py-3.5 rounded-xl font-bold text-sm bg-slate-800 hover:bg-slate-700 text-white border border-white/10 transition-all">
+                        Launch WebTrader Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer & Regulatory Disclaimer -->
+    <footer class="bg-[#030508] border-t border-white/10 pt-16 pb-12 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center text-slate-950 font-bold text-xs">
+                            A
+                        </div>
+                        <span class="text-base font-extrabold text-white">APEX MARKETS</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-xs">
+                        Next-generation multi-asset brokerage delivering true ECN liquidity, negative balance protection, and institutional-grade order execution.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-4">Markets</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#markets" class="hover:text-cyan-400 transition-colors">Forex Trading</a></li>
+                        <li><a href="#markets" class="hover:text-cyan-400 transition-colors">Crypto Derivatives</a></li>
+                        <li><a href="#markets" class="hover:text-cyan-400 transition-colors">Global Indices</a></li>
+                        <li><a href="#markets" class="hover:text-cyan-400 transition-colors">Precious Metals & Oil</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-4">Trading Tech</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#webtrader" class="hover:text-cyan-400 transition-colors">Apex WebTrader</a></li>
+                        <li><a href="#calculator" class="hover:text-cyan-400 transition-colors">Margin Calculator</a></li>
+                        <li><a href="#accounts" class="hover:text-cyan-400 transition-colors">Raw ECN Spread</a></li>
+                        <li><a href="#advantages" class="hover:text-cyan-400 transition-colors">FIX API Protocol</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-4">Client Support</h4>
+                    <p class="text-slate-400 mb-2">Multilingual Trade Desk available 24/7:</p>
+                    <div class="font-mono text-cyan-400 font-semibold mb-1">support@apexmarkets.io</div>
+                    <div class="font-mono text-slate-300 font-semibold">+1 (800) 849-APEX</div>
+                </div>
+            </div>
+
+            <!-- Regulatory Risk Warning -->
+            <div class="pt-8 border-t border-white/10 text-[11px] text-slate-400 leading-relaxed space-y-3">
+                <p>
+                    <strong class="text-slate-300">High Risk Investment Warning:</strong> Trading Contracts for Difference (CFDs), Foreign Exchange (Forex), and leveraged financial instruments carries a high level of risk and may not be suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade, you should carefully consider your investment objectives, level of experience, and risk appetite. You could sustain a loss of some or all of your deposited capital.
+                </p>
+                <p>
+                    Apex Global Markets is authorized and regulated in multiple international tier-1 jurisdictions. Segregated client funds are held in strict compliance with international statutory custody laws.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-between pt-4 text-slate-400 text-[11px]">
+                    <div>&copy; 2026 Apex Global Markets Ltd. All rights reserved.</div>
+                    <div class="flex gap-4 mt-2 sm:mt-0">
+                        <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                        <a href="#" class="hover:text-slate-300">Terms of Service</a>
+                        <a href="#" class="hover:text-slate-300">Risk Disclosure</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: Open Account / Registration -->
+    <div id="account-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
+        <div class="glass-panel modal-content rounded-2xl max-w-md w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative">
+            <button onclick="window.app.closeAccountModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="flex items-center gap-2 mb-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Instant Verification</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-white">Open Trading Account</h3>
+            <p class="text-xs text-slate-400 mt-1">Get immediate access to institutional spreads and the WebTrader terminal.</p>
+
+            <form id="registration-form" class="mt-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Full Legal Name</label>
+                    <input id="reg-name" type="text" required placeholder="e.g. Alexander Vance"
+                           class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
+                    <input id="reg-email" type="email" required placeholder="trader@example.com"
+                           class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Account Tier</label>
+                        <select id="modal-acc-tier" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-semibold">
+                            <option value="Standard">Standard ($100)</option>
+                            <option value="Raw ECN" selected>Raw ECN ($500)</option>
+                            <option value="Institutional VIP">Institutional VIP ($10,000)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Base Currency</label>
+                        <select class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-semibold">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit"
+                            class="w-full py-3 rounded-xl font-extrabold text-sm bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 shadow-lg shadow-cyan-500/25 transition-all">
+                        Complete Registration & Trade
+                    </button>
+                </div>
+                <div class="text-[11px] text-center text-slate-400">
+                    By registering you accept the Risk Disclosure and Terms of Service.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Deposit Funds -->
+    <div id="deposit-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
+        <div class="glass-panel modal-content rounded-2xl max-w-md w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative">
+            <button onclick="window.app.closeDepositModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <h3 class="text-2xl font-extrabold text-white">Deposit Funds</h3>
+            <p class="text-xs text-slate-400 mt-1">Instant processing with 0% funding fees.</p>
+
+            <form id="deposit-form" class="mt-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Payment Method</label>
+                    <select id="dep-method" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-semibold">
+                        <option value="Credit / Debit Card (Visa/MC)">Credit / Debit Card (Instant)</option>
+                        <option value="Tether USDT (TRC-20)">Tether USDT TRC-20 (Crypto)</option>
+                        <option value="Bitcoin (BTC)">Bitcoin BTC (Instant)</option>
+                        <option value="Apple Pay / Google Pay">Apple Pay / Google Pay</option>
+                        <option value="Wire Transfer">Bank Wire Transfer</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Deposit Amount (USD)</label>
+                    <div class="relative">
+                        <input id="dep-amount" type="number" min="50" step="50" value="1000"
+                               class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-base font-mono text-white focus:outline-none focus:border-cyan-500">
+                        <div class="absolute right-4 top-3 text-xs font-mono text-slate-400">USD</div>
+                    </div>
+                </div>
+
+                <!-- Quick Amount Pills -->
+                <div class="grid grid-cols-4 gap-2 pt-1">
+                    <button type="button" onclick="document.getElementById('dep-amount').value = 250"
+                            class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 border border-white/5">$250</button>
+                    <button type="button" onclick="document.getElementById('dep-amount').value = 500"
+                            class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 border border-white/5">$500</button>
+                    <button type="button" onclick="document.getElementById('dep-amount').value = 1000"
+                            class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 border border-white/5">$1,000</button>
+                    <button type="button" onclick="document.getElementById('dep-amount').value = 5000"
+                            class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 border border-white/5">$5,000</button>
+                </div>
+
+                <div class="pt-3">
+                    <button type="submit"
+                            class="w-full py-3 rounded-xl font-extrabold text-sm bg-gradient-to-r from-emerald-500 to-cyan-400 hover:from-emerald-400 hover:to-cyan-300 text-slate-950 shadow-lg shadow-emerald-500/25 transition-all">
+                        Confirm Instant Deposit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Fullscreen WebTrader Floating Modal Launcher -->
+    <div id="webtrader-modal" class="fixed inset-0 z-50 hidden flex flex-col bg-slate-950/95 backdrop-blur-xl">
+        <div class="px-5 py-3 bg-slate-900 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center font-bold text-slate-950 text-xs">
+                    A
+                </div>
+                <span class="font-extrabold text-sm text-white">Apex WebTrader Terminal (Full Window)</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="window.app.openDepositModal()" class="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded text-xs font-bold border border-emerald-500/30">
+                    + Deposit Funds
+                </button>
+                <button onclick="window.app.closeWebTraderModal()" class="text-slate-400 hover:text-white text-sm px-2 py-1 bg-slate-800 rounded">
+                    ✕ Close Fullscreen
+                </button>
+            </div>
+        </div>
+        <div class="flex-grow p-4 overflow-y-auto">
+            <div class="max-w-7xl mx-auto">
+                <p class="text-xs text-slate-400 mb-3">You can execute live trades directly inside the interactive WebTrader section on the main page or in this maximized view.</p>
+                <!-- Terminal container mirrored for focus -->
+                <div class="text-center py-12">
+                    <div class="text-xl font-bold text-white mb-4">WebTrader Terminal is running actively on the page!</div>
+                    <button onclick="window.app.closeWebTraderModal(); location.hash = '#webtrader';"
+                            class="px-6 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-extrabold text-sm">
+                        Jump to In-Page Terminal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/webtrader.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
