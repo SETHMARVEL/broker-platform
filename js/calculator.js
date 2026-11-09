@@ -1,4 +1,4 @@
-// Apex Global Markets - Margin & Pip Value Calculator
+// Profit FX Broker - Margin & Pip Value Calculator
 
 class TradingCalculator {
     constructor() {

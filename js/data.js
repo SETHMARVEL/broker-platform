@@ -1,4 +1,4 @@
-// Market Data and Asset Definitions for Apex Global Markets
+// Market Data and Asset Definitions for Profit FX Broker
 
 const MARKET_ASSETS = [
     // Forex
@@ -128,7 +128,7 @@ const FAQS = [
         a: 'Absolutely. Every registration grants immediate access to an unexpiring $10,000 virtual demo balance in the WebTrader terminal with true live market conditions, zero risk, and real-time execution speeds.'
     },
     {
-        q: 'What instruments can I trade with Apex Markets?',
+        q: 'What instruments can I trade with Profit FX Broker?',
         a: 'You can trade over 1,200 financial instruments across Major & Minor Forex pairs, Cryptocurrencies, Global Stock Indices (US 500, Tech 100, DAX 40), Commodities (Gold, Silver, Crude Oil, Natural Gas), and blue-chip equities.'
     },
     {

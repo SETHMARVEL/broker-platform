@@ -1,4 +1,4 @@
-// Apex Global Markets - Main Application Controller
+// Profit FX Broker - Main Application Controller
 
 class App {
     constructor() {

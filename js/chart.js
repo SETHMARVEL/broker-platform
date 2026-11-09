@@ -1,4 +1,4 @@
-// High-Performance Lightweight Candlestick Chart Engine for Apex WebTrader
+// High-Performance Lightweight Candlestick Chart Engine for Profit FX WebTrader
 
 class CandlestickChart {
     constructor(canvasId) {

@@ -1,4 +1,4 @@
-# Apex Global Markets - Brokerage Platform
+# Profit FX Broker - Brokerage Platform
 
 A modern, institutional-grade broker website and interactive WebTrader platform.
 
@@ -18,7 +18,7 @@ If you have a free Vercel account:
 ---
 
 ### Option 2: Deploy via GitHub (Recommended for Continuous Updates)
-1. Create a new repository on [GitHub](https://github.com/new) (e.g. `apex-broker-platform`).
+1. Create a new repository on [GitHub](https://github.com/new) (e.g. `profit-fx-broker`).
 2. Upload this folder's contents:
    - `index.html`
    - `vercel.json`

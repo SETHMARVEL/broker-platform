@@ -1,4 +1,4 @@
-// Apex Global Markets - Interactive WebTrader Engine & Simulated Execution
+// Profit FX Broker - Interactive WebTrader Engine & Simulated Execution
 
 class WebTrader {
     constructor() {
@@ -10,7 +10,7 @@ class WebTrader {
         this.account = {
             name: 'Demo Account (VIP ECN)',
             accountNumber: '8849201',
-            server: 'ApexMarkets-LiveLD4',
+            server: 'ProfitFX-LiveLD4',
             balance: 10000.00,
             equity: 10000.00,
             margin: 0.00,
